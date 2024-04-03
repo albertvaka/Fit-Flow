@@ -1,9 +1,11 @@
 package app.fit.fitndflow.ui.features.training
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,11 +14,13 @@ import app.fit.fitndflow.domain.model.SerieModel
 import app.fit.fitndflow.ui.features.categories.ConfirmationDialogFragment
 import app.fit.fitndflow.ui.features.categories.DialogCallbackDelete
 import app.fit.fitndflow.ui.features.common.CommonFragment
+import app.fit.fitndflow.ui.features.common.hideKeyBoard
 import com.fit.fitndflow.R
 import com.fit.fitndflow.databinding.AddSerieTrainingFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+
 @AndroidEntryPoint
 class AddSerieTrainingFragment : CommonFragment(), TrainingCallback, DialogCallbackDelete {
 
@@ -61,15 +65,16 @@ class AddSerieTrainingFragment : CommonFragment(), TrainingCallback, DialogCallb
         addSerieTrainingViewModel.getSerieListOfExerciseAdded(exercise.id!!)
     }
 
-    private fun attachObservers(){
-        addSerieTrainingViewModel.state.onEach(::handleState).launchIn(viewLifecycleOwner.lifecycleScope)
+    private fun attachObservers() {
+        addSerieTrainingViewModel.state.onEach(::handleState)
+            .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
-    private fun handleState(state: AddSerieTrainingViewModel.State){
-        when(state){
+    private fun handleState(state: AddSerieTrainingViewModel.State) {
+        when (state) {
             is AddSerieTrainingViewModel.State.SeriesChangedInExerciseDetail -> {
                 instantiateSeriesAdapter(state.serieList)
-                if(state.showSlideSuccess){
+                if (state.showSlideSuccess) {
                     showSlideSaved()
                 }
                 hideLoading()
@@ -85,6 +90,7 @@ class AddSerieTrainingFragment : CommonFragment(), TrainingCallback, DialogCallb
                 hideLoading()
                 showSlideError()
             }
+
             AddSerieTrainingViewModel.State.Loading -> {
                 showLoading()
             }
@@ -104,6 +110,7 @@ class AddSerieTrainingFragment : CommonFragment(), TrainingCallback, DialogCallb
                 currentSelectedSerieModel?.let {
                     addSerieTrainingViewModel.modifySerie(it.id!!, reps, kg, exercise.id!!)
                 } ?: addSerieTrainingViewModel.addNewSerie(reps, kg, exercise.id!!)
+                activity?.hideKeyBoard()
             }
 
             deleteAndCleanBtn.setOnClickListener {
@@ -157,7 +164,7 @@ class AddSerieTrainingFragment : CommonFragment(), TrainingCallback, DialogCallb
         }
     }
 
-    private fun instantiateSeriesAdapter(serieModelList: List<SerieModel>){
+    private fun instantiateSeriesAdapter(serieModelList: List<SerieModel>) {
         seriesAdapter = SeriesAdapter(serieModelList, this)
         binding.apply {
             addSerieLayout.setHasFixedSize(true)
@@ -166,10 +173,10 @@ class AddSerieTrainingFragment : CommonFragment(), TrainingCallback, DialogCallb
         }
     }
 
-    private fun printEditMode(isEditMode: Boolean){
+    private fun printEditMode(isEditMode: Boolean) {
         binding.apply {
-            if(isEditMode){
-                etCounterReps.setText(currentSelectedSerieModel!!.reps?.toString() ?: "0" )
+            if (isEditMode) {
+                etCounterReps.setText(currentSelectedSerieModel!!.reps?.toString() ?: "0")
                 etCounterKg.setText(currentSelectedSerieModel!!.kg?.toString() ?: "0.0")
                 saveAndUpdateBtn.setText(R.string.update)
                 saveAndUpdateBtn.setBackgroundResource(R.drawable.shape_serie_add_btn)
@@ -187,8 +194,9 @@ class AddSerieTrainingFragment : CommonFragment(), TrainingCallback, DialogCallb
         }
     }
 
-    private fun showDeleteDialog(id: Int){
-        ConfirmationDialogFragment.newInstance(this, ConfirmationDialogFragment.DELETE_SERIE, id).show(childFragmentManager, ConfirmationDialogFragment.TAG)
+    private fun showDeleteDialog(id: Int) {
+        ConfirmationDialogFragment.newInstance(this, ConfirmationDialogFragment.DELETE_SERIE, id)
+            .show(childFragmentManager, ConfirmationDialogFragment.TAG)
     }
 
     override fun onClickAcceptDelete(serieId: Int) {
