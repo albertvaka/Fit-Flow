@@ -1,11 +1,9 @@
 package app.fit.fitndflow.ui.features.training
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -45,6 +43,8 @@ class AddSerieTrainingFragment : CommonFragment(), TrainingCallback, DialogCallb
     private val exercise: ExerciseModel by lazy { requireArguments().getSerializable(KEY_EXERCISE) as ExerciseModel }
     private lateinit var seriesAdapter: SeriesAdapter
     private var currentSelectedSerieModel: SerieModel? = null
+    private var lastRepsWritten: Int? = null
+    private var lastKgWritten: Double? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -74,11 +74,17 @@ class AddSerieTrainingFragment : CommonFragment(), TrainingCallback, DialogCallb
         when (state) {
             is AddSerieTrainingViewModel.State.SeriesChangedInExerciseDetail -> {
                 instantiateSeriesAdapter(state.serieList)
+                setScreenEditMode(false)
                 if (state.showSlideSuccess) {
                     showSlideSaved()
                 }
+                if (state.showLastSerieAdded) {
+                    binding.apply{
+                        etCounterReps.setText(lastRepsWritten.toString())
+                        etCounterKg.setText(lastKgWritten.toString())
+                    }
+                }
                 hideLoading()
-                printEditMode(false)
             }
 
             AddSerieTrainingViewModel.State.FullScreenError -> {
@@ -104,9 +110,13 @@ class AddSerieTrainingFragment : CommonFragment(), TrainingCallback, DialogCallb
                 val reps: Int = if (etCounterReps.text.toString()
                         .isEmpty()
                 ) 0 else etCounterReps.text.toString().toInt()
+                lastRepsWritten = reps
+
                 val kg: Double = if (etCounterKg.text.toString()
                         .isEmpty()
                 ) 0.0 else etCounterKg.text.toString().toDouble()
+                lastKgWritten = kg
+
                 currentSelectedSerieModel?.let {
                     addSerieTrainingViewModel.modifySerie(it.id!!, reps, kg, exercise.id!!)
                 } ?: addSerieTrainingViewModel.addNewSerie(reps, kg, exercise.id!!)
@@ -173,7 +183,7 @@ class AddSerieTrainingFragment : CommonFragment(), TrainingCallback, DialogCallb
         }
     }
 
-    private fun printEditMode(isEditMode: Boolean) {
+    private fun setScreenEditMode(isEditMode: Boolean) {
         binding.apply {
             if (isEditMode) {
                 etCounterReps.setText(currentSelectedSerieModel!!.reps?.toString() ?: "0")
@@ -206,6 +216,6 @@ class AddSerieTrainingFragment : CommonFragment(), TrainingCallback, DialogCallb
     override fun clickListenerInterfaceAdapter(input: SerieModel?) {
         currentSelectedSerieModel = input
         val isEditMode = input != null
-        printEditMode(isEditMode)
+        setScreenEditMode(isEditMode)
     }
 }

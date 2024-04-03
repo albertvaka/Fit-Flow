@@ -40,7 +40,10 @@ class AddSerieTrainingViewModel @Inject constructor(
             addSerieUseCase(params)
                 .onStart { _state.emit(State.Loading) }
                 .catch { _state.emit(State.SlideError) }
-                .collect { _state.emit(State.SeriesChangedInExerciseDetail(it, true)) }
+                .collect { _state.emit(State.SeriesChangedInExerciseDetail(it,
+                    showSlideSuccess = true,
+                    showLastSerieAdded = true
+                )) }
         }
     }
 
@@ -80,7 +83,8 @@ class AddSerieTrainingViewModel @Inject constructor(
         object SlideError : State()
         data class SeriesChangedInExerciseDetail(
             val serieList: List<SerieModel>,
-            val showSlideSuccess: Boolean
+            val showSlideSuccess: Boolean,
+            val showLastSerieAdded: Boolean = false
         ) : State()
     }
 }
