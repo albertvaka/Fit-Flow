@@ -44,7 +44,7 @@
         android:layout_marginTop="50dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        style="@style/text_l_white"
+        style="@style/text_l_black"
         android:textColorHint="#a39ca7"
         android:padding="10dp"
         android:drawableStart="@drawable/svg_search"
