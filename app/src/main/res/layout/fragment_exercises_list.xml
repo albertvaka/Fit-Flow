@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         android:padding="20dp"
-        android:background="@drawable/shape_exercises_list_title_bar_highpurple_rounded_corners">
+        android:background="@drawable/corner_calendbar">
     <TextView
         android:id="@+id/categoryTitle"
         android:layout_width="match_parent"

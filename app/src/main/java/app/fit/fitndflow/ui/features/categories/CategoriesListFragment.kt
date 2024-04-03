@@ -24,6 +24,7 @@ import com.fit.fitndflow.databinding.FragmentCategoriesListBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+
 @AndroidEntryPoint
 class CategoriesListFragment : CommonFragment(), CategoryAdapterCallback, AccessibilityInterface,
     SerieAdapterCallback, DialogCallbackDelete {
@@ -53,55 +54,62 @@ class CategoriesListFragment : CommonFragment(), CategoryAdapterCallback, Access
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        attachObservers() //todo este será substituido por attachObservers()
+        attachObservers()
         categoriesViewModel.requestCategoriesFromModel()
     }
 
-    private fun attachObservers(){
+    private fun attachObservers() {
         categoriesViewModel.state.onEach(::handleState).launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
-    private fun handleState(state: CategoriesViewModel.State){
-        when(state){
+    private fun handleState(state: CategoriesViewModel.State) {
+        when (state) {
             is CategoriesViewModel.State.CategoryListRecived -> {
+                changeEditMode(false)
                 printCategories(state.categoryList)
-                if(state.showSlideSuccess){
+                if (state.showSlideSuccess) {
                     showSlideSaved()
                 }
                 hideLoading()
             }
+
             CategoriesViewModel.State.FullScreenError -> {
                 hideLoading()
                 showBlockError()
             }
+
             CategoriesViewModel.State.SlideError -> {
                 hideLoading()
                 showSlideError()
             }
+
             CategoriesViewModel.State.Loading -> {
                 showLoading()
             }
         }
     }
-    private fun printCategories(listRecived: List<CategoryModel>){
+
+    private fun printCategories(listRecived: List<CategoryModel>) {
         categoryList = listRecived
         categoriesAdapter.setCategoryList(categoryList)
     }
-    private fun addTextWatcher(){
-        binding.txtSearch.addTextChangedListener(object : TextWatcher{
+
+    private fun addTextWatcher() {
+        binding.txtSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 //Nothing to do
             }
+
             override fun onTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 charSequence?.let { searchText ->
                     val filteredList = mutableListOf<ExerciseModel>()
-                    if(searchText.isBlank()){
+                    if (searchText.isBlank()) {
                         instantiateCategoriesAdapter()
                         categoriesAdapter.setCategoryList(categoryList)
                     } else {
-                        categoryList.forEach{ category ->
+                        categoryList.forEach { category ->
                             category.exerciseList?.forEach { exercise ->
-                                if(exercise.name.contains(searchText, ignoreCase = true)) {
+                                if (exercise.name.contains(searchText, ignoreCase = true)) {
                                     filteredList.add(exercise)
                                 }
                             }
@@ -111,20 +119,21 @@ class CategoriesListFragment : CommonFragment(), CategoryAdapterCallback, Access
                     }
                 }
             }
+
             override fun afterTextChanged(charSequence: Editable?) {
                 //Nothing to do
             }
         })
     }
 
-    private fun instantiateCategoriesAdapter(){
+    private fun instantiateCategoriesAdapter() {
         categoriesAdapter = CategoriesAdapter(this)
         binding.recyclerCategories.setHasFixedSize(true)
         binding.recyclerCategories.layoutManager = LinearLayoutManager(this.context)
         binding.recyclerCategories.adapter = categoriesAdapter
     }
 
-    private fun instantiateExercisesAdapter(filteredList: MutableList<ExerciseModel>){
+    private fun instantiateExercisesAdapter(filteredList: MutableList<ExerciseModel>) {
         exercisesAdapter = ExercisesAdapter(filteredList, this)
         binding.recyclerCategories.setHasFixedSize(true)
         binding.recyclerCategories.layoutManager = LinearLayoutManager(this.context)
@@ -133,24 +142,31 @@ class CategoriesListFragment : CommonFragment(), CategoryAdapterCallback, Access
 
     private fun setOnClickListeners() {
         binding.apply {
-            floatingBtn.setOnClickListener{
-                isEditMode = !isEditMode
-                if(isEditMode){
-                    floatingBtn.setImageResource(R.drawable.svg_check)
-                } else {
-                    floatingBtn.setImageResource(R.drawable.svg_pencil)
-                }
-                categoriesAdapter.setEditMode(isEditMode)
+            floatingBtn.setOnClickListener {
+                changeEditMode()
             }
         }
     }
+
+    private fun changeEditMode(editMode: Boolean? = null){
+        binding.apply {
+            isEditMode = editMode ?: !isEditMode
+            if (isEditMode) {
+                floatingBtn.setImageResource(R.drawable.svg_check)
+            } else {
+                floatingBtn.setImageResource(R.drawable.svg_pencil)
+            }
+            categoriesAdapter.setEditMode(isEditMode)
+        }
+    }
+
 
     override fun showExercises(category: CategoryModel) {
         addFragment(ExerciseListFragment.newInstance(category))
     }
 
     override fun showSeries(exercise: ExerciseModel) {
-        if(exercise.id != 0){
+        if (exercise.id != 0) {
             addFragment(AddSerieTrainingFragment.newInstance(exercise))
         } else {
             showBlockError()
@@ -158,15 +174,18 @@ class CategoriesListFragment : CommonFragment(), CategoryAdapterCallback, Access
     }
 
     override fun showCreationDialog() {
-        CreationOrModifyInputDialog.newInstance(TYPE_CATEGORY).show(childFragmentManager, CreationOrModifyInputDialog.TAG)
+        CreationOrModifyInputDialog.newInstance(TYPE_CATEGORY)
+            .show(childFragmentManager, CreationOrModifyInputDialog.TAG)
     }
 
     override fun showDeleteDialog(id: Int) {
-        ConfirmationDialogFragment.newInstance(this, ConfirmationDialogFragment.DELETE_CATEGORY, id).show(childFragmentManager, ConfirmationDialogFragment.TAG)
+        ConfirmationDialogFragment.newInstance(this, ConfirmationDialogFragment.DELETE_CATEGORY, id)
+            .show(childFragmentManager, ConfirmationDialogFragment.TAG)
     }
 
     override fun showModifyDialog(id: Int, name: String?) {
-        CreationOrModifyInputDialog.newInstance(TYPE_CATEGORY, id, name!!).show(childFragmentManager, CreationOrModifyInputDialog.TAG);
+        CreationOrModifyInputDialog.newInstance(TYPE_CATEGORY, id, name!!)
+            .show(childFragmentManager, CreationOrModifyInputDialog.TAG);
     }
 
     override fun onClickAcceptDelete(id: Int) {
@@ -175,6 +194,7 @@ class CategoriesListFragment : CommonFragment(), CategoryAdapterCallback, Access
 
     override fun initAccessibility() {
         val searchExercise: String = requireContext().getString(R.string.search_exercise)
-        binding.txtSearch.accessibilityDelegate = AccessibilityUtils.createAccesibilityDelegate(searchExercise + binding.txtSearch.text.toString())
+        binding.txtSearch.accessibilityDelegate =
+            AccessibilityUtils.createAccesibilityDelegate(searchExercise + binding.txtSearch.text.toString())
     }
 }

@@ -70,6 +70,7 @@ class ExerciseListFragment : CommonFragment(), SerieAdapterCallback, DialogCallb
     private fun handleState(state: ExercisesViewModel.State) {
         when (state) {
             is ExercisesViewModel.State.ExerciseListRecived -> {
+                changeEditMode(false)
                 printExercises(state.exerciseList.toMutableList())
                 showSlideSaved()
                 hideLoading()
@@ -126,14 +127,20 @@ class ExerciseListFragment : CommonFragment(), SerieAdapterCallback, DialogCallb
     private fun setOnClickListeners() {
         binding.apply {
             floatingBtn.setOnClickListener {
-                isEditMode = !isEditMode
-                if (isEditMode) {
-                    floatingBtn.setImageResource(R.drawable.svg_check)
-                } else {
-                    floatingBtn.setImageResource(R.drawable.svg_pencil)
-                }
-                exercisesAdapter.setEditMode(isEditMode)
+                changeEditMode()
             }
+        }
+    }
+
+    private fun changeEditMode(editMode: Boolean? = null){
+        binding.apply{
+            isEditMode = editMode?: !isEditMode
+            if (isEditMode) {
+                floatingBtn.setImageResource(R.drawable.svg_check)
+            } else {
+                floatingBtn.setImageResource(R.drawable.svg_pencil)
+            }
+            exercisesAdapter.setEditMode(isEditMode)
         }
     }
 

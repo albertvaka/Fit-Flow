@@ -9,7 +9,6 @@ public interface CategoryAdapterCallback {
     void showCreationDialog ();
 
     void showModifyDialog(int id, String name);
-    //todo nuevo metodo para mostrar mostrar el dialogo de edicion
 
     void showDeleteDialog(int id);
 }
