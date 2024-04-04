@@ -22,7 +22,7 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.ViewHolder
 
     private ViewHolder lastItemClicked;
 
-    public SeriesAdapter(List<SerieModel> serieModelList, TrainingCallback trainingCallback) { //todo pasarle un callback tambien y setearlo
+    public SeriesAdapter(List<SerieModel> serieModelList, TrainingCallback trainingCallback) {
         this.serieModelList = serieModelList;
         this.trainingCallback = trainingCallback;
     }
@@ -36,9 +36,6 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull SeriesAdapter.ViewHolder holder, int position) {
-        //todo aqui, deberia de modificar el fragment a traves del callback
-        // (si por ejemplo le clico a numreps, en el fragment (dentro de repeticiones),
-        // me deberia de salir el mismo numero. esto se hace mediante el callback
 
             SerieModel serieModel = serieModelList.get(position);
             if (serieModel.getReps() != null) {
