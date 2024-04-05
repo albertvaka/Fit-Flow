@@ -2,7 +2,6 @@ package app.fit.fitndflow.dagger
 
 import android.content.Context
 import app.fit.fitndflow.data.repository.FitnFlowRepositoryImpl
-import app.fit.fitndflow.domain.Utils
 import app.fit.fitndflow.domain.repository.FitnFlowRepository
 import dagger.Module
 import dagger.Provides

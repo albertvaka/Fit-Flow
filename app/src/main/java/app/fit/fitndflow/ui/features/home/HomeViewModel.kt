@@ -1,14 +1,9 @@
 package app.fit.fitndflow.ui.features.home
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.fit.fitndflow.data.repository.FitnFlowRepositoryImpl
 import app.fit.fitndflow.domain.Utils
-import app.fit.fitndflow.domain.common.arq.FitRxObserver
 import app.fit.fitndflow.domain.model.CategoryModel
-import app.fit.fitndflow.domain.model.UserModel
-import app.fit.fitndflow.domain.repository.FitnFlowRepository
 import app.fit.fitndflow.domain.usecase.GetTrainingUseCase
 import app.fit.fitndflow.domain.usecase.GetTrainingUseCaseParams
 import app.fit.fitndflow.domain.usecase.RegisterUserUseCase
@@ -17,7 +12,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import java.util.Calendar

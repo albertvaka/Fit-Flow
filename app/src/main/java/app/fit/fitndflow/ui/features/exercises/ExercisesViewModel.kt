@@ -1,11 +1,8 @@
 package app.fit.fitndflow.ui.features.exercises
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.fit.fitndflow.data.repository.FitnFlowRepositoryImpl
 import app.fit.fitndflow.domain.model.ExerciseModel
-import app.fit.fitndflow.domain.repository.FitnFlowRepository
 import app.fit.fitndflow.domain.usecase.AddExerciseUseCase
 import app.fit.fitndflow.domain.usecase.AddExerciseUseCaseParams
 import app.fit.fitndflow.domain.usecase.DeleteExerciseUseCase

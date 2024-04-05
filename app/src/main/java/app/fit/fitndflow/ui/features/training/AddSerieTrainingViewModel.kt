@@ -1,11 +1,8 @@
 package app.fit.fitndflow.ui.features.training
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.fit.fitndflow.data.repository.FitnFlowRepositoryImpl
 import app.fit.fitndflow.domain.model.SerieModel
-import app.fit.fitndflow.domain.repository.FitnFlowRepository
 import app.fit.fitndflow.domain.usecase.AddSerieUseCase
 import app.fit.fitndflow.domain.usecase.AddSerieUseCaseParams
 import app.fit.fitndflow.domain.usecase.DeleteSerieUseCase

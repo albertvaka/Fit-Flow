@@ -1,10 +1,7 @@
 package app.fit.fitndflow.domain.repository;
 
-import android.content.Context;
-
 import java.util.List;
 
-import app.fit.fitndflow.data.dto.UserDto;
 import app.fit.fitndflow.domain.common.repository.CommonRepository;
 import app.fit.fitndflow.domain.model.CategoryModel;
 import app.fit.fitndflow.domain.model.ExerciseModel;
