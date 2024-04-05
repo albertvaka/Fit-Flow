@@ -9,16 +9,17 @@
     <string name="yesterday_date_selector">Ayer</string>
     <string name="search_category">Buscar categoria</string>
     <string name="search_exercise">Buscar ejercicio</string>
-    <string name="name_category">nombre categoría</string>
-    <string name="new_exercise">nombre del ejercicio</string>
+    <string name="name_category">Nombre categoría</string>
+    <string name="new_exercise">Nombre del ejercicio</string>
     <string name="add_training">Añadir entrenamiento</string>
     <string name="add_exercise">Añadir ejercicio</string>
     <string name="dialog_category_delete">¿Estás seguro de que deseas borrar esta categoría?</string>
-    <string name="dialog_btn_delete">Si, borrar</string>
+    <string name="dialog_btn_delete">Sí, borrar</string>
+    <string name="dialog_btn_cancel">Cancelar</string>
+
     <string name="dialog_exercise_delete">¿Estás seguro de que deseas borrar este ejercicio?</string>
     <string name="save_and_add_serie_btn">Guardar y añadir otro</string>
     <string name="save_and_exit_btn">Guardar y salir</string>
-
 
     <string name="talkback_reps_edit_text">Introduce el numero de repeticiones. Valor actual </string>
     <string name="talkback_kg_edit_text">Introduce el número de kilos. Valor actual</string>
@@ -30,17 +31,18 @@
     <string name="talkback_day_after_btn">siguiente dia</string>
     <string name="talkback_block_error">Algo no ha ido bien, pantalla bloqueada. Revisa tu conexión a internet.</string>
     <string name="talkback_error">Ha ocurrido un error.</string>
+
     <string name="loading">Cargando</string>
-    <string name="num_reps">num reps</string>
+    <string name="num_reps">Num reps</string>
     <string name="reps_txt">Reps</string>
-    <string name="num_kg">num kg</string>
+    <string name="num_kg">Num kg</string>
     <string name="kg_txt">Kg</string>
-    <string name="exercise_name">nombre ejercicio</string>
+    <string name="exercise_name">Nombre ejercicio</string>
     <string name="notification_body">Hoy es un buen día para entrenar!</string>
     <string name="notification_title">Psssss!</string>
     <string name="layout_notification_title">¡Activa las notificaciones y entrena al máximo!</string>
     <string name="layout_notification_body">Para asegurarnos de que no te pierdas ninguno de tus entrenamientos, necesitamos tu permiso. Las notificaciones te recordarán tus sesiones de entrenamiento, ayudándote a mantenerte motivado y en forma. ¡Activa las notificaciones para una experiencia de entrenamiento óptima!</string>
-    <string name="im_agree">Estoy deacuerdo</string>
+    <string name="im_agree">Estoy de acuerdo</string>
     <string name="dont_show_again_chekbox_txt">No volver a mostrar</string>
     <string name="error_fulscreen_back_btn">Volver atrás</string>
     <string name="error_fulscreen_title">¡Guau, algo ha salido mal!</string>
@@ -60,5 +62,17 @@
     <string name="clean">Limpiar</string>
     <string name="mancuernas">Mancuernas</string>
     <string name="espalda">Espalda</string>
+    <string name="repetitions">Repeticiones</string>
+    <string name="Weight_kg">Peso (Kg)</string>
+    <string name="add_note">Añadir Nota</string>
+    <string name="sunday">Domingo</string>
+    <string name="monday">Lunes</string>
+    <string name="tuesday">Martes</string>
+    <string name="wednesday">Miércoles</string>
+    <string name="thursday">Jueves</string>
+    <string name="friday">Viernes</string>
+    <string name="saturday">Sábado</string>
+    <string name="escriba_texto">Escriba texto...</string>
+    <string name="successfully_added">Añadido correctamente</string>
 
 </resources>

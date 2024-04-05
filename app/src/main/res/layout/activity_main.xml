@@ -37,7 +37,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Añadido correctamente"
+            android:text="@string/successfully_added"
             android:gravity="center"
             android:paddingTop="30dp"
             android:textColor="@color/white"

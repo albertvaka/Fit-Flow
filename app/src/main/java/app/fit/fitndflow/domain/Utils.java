@@ -1,6 +1,10 @@
 package app.fit.fitndflow.domain;
 
 
+import android.content.Context;
+
+import com.fit.fitndflow.R;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -11,40 +15,45 @@ public class Utils {
     public static final String SPANISH = "es";
     private static final String ENGLISH_FORMAT = "yyyy/MM/dd";
     private static final String SPANISH_FORMAT = "dd/MM/yyyy";
+
     public static String getSpanishFormatDate(Date date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(SPANISH_FORMAT);
         return dateFormat.format(date);
     }
-    public static String getEnglishFormatDate(Date date){
+
+    public static String getEnglishFormatDate(Date date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(ENGLISH_FORMAT);
         return dateFormat.format(date);
     }
-    public static StringInLanguagesDto convertToStringInLanguages(String language, String nameCategory){
+
+    public static StringInLanguagesDto convertToStringInLanguages(String language, String nameCategory) {
         StringInLanguagesDto stringInLanguagesDto;
-        if(language.equals(SPANISH)){
+        if (language.equals(SPANISH)) {
             stringInLanguagesDto = new StringInLanguagesDto(nameCategory, "");
         } else {
             stringInLanguagesDto = new StringInLanguagesDto("", nameCategory);
         }
         return stringInLanguagesDto;
     }
-    public static String getCalendarFormatDate(Date date){
+
+    public static String getCalendarFormatDate(Date date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(" dd, MMM");
         return dateFormat.format(date);
     }
 
-    public static String dayOfWeek(Date date){
+    public static String dayOfWeek(Date date, Context context) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
 
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 
-        String[] dayNames = {"Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"};
+        String[] dayNames = {context.getString(R.string.sunday), context.getString(R.string.monday), context.getString(R.string.tuesday), context.getString(R.string.wednesday),
+                context.getString(R.string.thursday), context.getString(R.string.friday), context.getString(R.string.saturday)};
 
         return dayNames[dayOfWeek - 1].substring(0, 3);
     }
 
-    public static boolean isYesterday(Date date){
+    public static boolean isYesterday(Date date) {
         Calendar calYesterday = Calendar.getInstance();
         calYesterday.setTime(new Date());
         calYesterday.add(Calendar.DAY_OF_YEAR, -1);
@@ -57,7 +66,8 @@ public class Utils {
                 && calYesterday.get(Calendar.MONTH) == calFechaParametro.get(Calendar.MONTH)
                 && calYesterday.get(Calendar.DAY_OF_YEAR) == calFechaParametro.get(Calendar.DAY_OF_YEAR);
     }
-    public static boolean isToday(Date date){
+
+    public static boolean isToday(Date date) {
         Calendar calToday = Calendar.getInstance();
         calToday.setTime(new Date());
 
@@ -69,7 +79,8 @@ public class Utils {
                 && calToday.get(Calendar.MONTH) == calFechaParametro.get(Calendar.MONTH)
                 && calToday.get(Calendar.DAY_OF_YEAR) == calFechaParametro.get(Calendar.DAY_OF_YEAR);
     }
-    public static boolean isTomorrow(Date date){
+
+    public static boolean isTomorrow(Date date) {
         Calendar calTomorrow = Calendar.getInstance();
         calTomorrow.setTime(new Date());
         calTomorrow.add(Calendar.DAY_OF_YEAR, +1);

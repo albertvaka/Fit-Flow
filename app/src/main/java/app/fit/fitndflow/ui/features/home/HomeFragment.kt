@@ -133,7 +133,7 @@ class HomeFragment : CommonFragment(), ExerciseClickCallback {
                         dayOfWeek.visibility = GONE
                     } else {
                         dateName.setText(Utils.getCalendarFormatDate(date))
-                        dayOfWeek.setText(Utils.dayOfWeek(date))
+                        dayOfWeek.setText(Utils.dayOfWeek(date, context))
                         dayOfWeek.visibility = VISIBLE
                     }
                 }
