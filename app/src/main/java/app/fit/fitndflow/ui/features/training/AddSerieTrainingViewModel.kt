@@ -38,13 +38,12 @@ class AddSerieTrainingViewModel @Inject constructor(
                 .onStart { _state.emit(State.Loading) }
                 .catch { _state.emit(State.SlideError) }
                 .collect { _state.emit(State.SeriesChangedInExerciseDetail(it,
-                    showSlideSuccess = true,
                     showLastSerieAdded = true
                 )) }
         }
     }
 
-    fun modifySerie(serieId: Int, reps: Int, weight: Double, exerciseId: Int) {
+    fun modifySerie(serieId: Int, reps: Int, weight: Double) {
         val params = ModifySerieUseCaseParams(serieId, reps, weight)
         viewModelScope.launch {
             modifyTrainingUseCase(params)
@@ -60,7 +59,7 @@ class AddSerieTrainingViewModel @Inject constructor(
             getSerieAddedUseCase(params)
                 .onStart { _state.emit(State.Loading) }
                 .catch { _state.emit(State.FullScreenError) }
-                .collect { _state.emit(State.SeriesChangedInExerciseDetail(it, false)) }
+                .collect { _state.emit(State.SerieListRecived(it)) }
         }
     }
 
@@ -78,9 +77,11 @@ class AddSerieTrainingViewModel @Inject constructor(
         object Loading : State()
         object FullScreenError : State()
         object SlideError : State()
+        data class SerieListRecived(
+            val serieList: List<SerieModel>
+        ) : State()
         data class SeriesChangedInExerciseDetail(
             val serieList: List<SerieModel>,
-            val showSlideSuccess: Boolean,
             val showLastSerieAdded: Boolean = false
         ) : State()
     }

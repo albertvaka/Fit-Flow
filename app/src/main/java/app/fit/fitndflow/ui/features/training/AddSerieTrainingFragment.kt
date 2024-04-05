@@ -75,15 +75,19 @@ class AddSerieTrainingFragment : CommonFragment(), TrainingCallback, DialogCallb
             is AddSerieTrainingViewModel.State.SeriesChangedInExerciseDetail -> {
                 instantiateSeriesAdapter(state.serieList)
                 setScreenEditMode(false)
-                if (state.showSlideSuccess) {
-                    showSlideSaved()
-                }
+                showSlideSaved()
                 if (state.showLastSerieAdded) {
                     binding.apply{
                         etCounterReps.setText(lastRepsWritten.toString())
                         etCounterKg.setText(lastKgWritten.toString())
                     }
                 }
+                hideLoading()
+            }
+            is AddSerieTrainingViewModel.State.SerieListRecived -> {
+                instantiateSeriesAdapter(state.serieList)
+                setScreenEditMode(false)
+                printFirstSerieAdded()
                 hideLoading()
             }
 
@@ -100,7 +104,6 @@ class AddSerieTrainingFragment : CommonFragment(), TrainingCallback, DialogCallb
             AddSerieTrainingViewModel.State.Loading -> {
                 showLoading()
             }
-
         }
     }
 
@@ -118,7 +121,7 @@ class AddSerieTrainingFragment : CommonFragment(), TrainingCallback, DialogCallb
                 lastKgWritten = kg
 
                 currentSelectedSerieModel?.let {
-                    addSerieTrainingViewModel.modifySerie(it.id!!, reps, kg, exercise.id!!)
+                    addSerieTrainingViewModel.modifySerie(it.id!!, reps, kg)
                 } ?: addSerieTrainingViewModel.addNewSerie(reps, kg, exercise.id!!)
                 activity?.hideKeyBoard()
             }
@@ -200,6 +203,16 @@ class AddSerieTrainingFragment : CommonFragment(), TrainingCallback, DialogCallb
                 saveAndUpdateBtn.setBackgroundResource(R.drawable.shape_serie_add_and_clean_btns)
                 deleteAndCleanBtn.setText(R.string.clean)
                 deleteAndCleanBtn.setBackgroundResource(R.drawable.shape_serie_add_and_clean_btns)
+            }
+        }
+    }
+    private fun printFirstSerieAdded(){
+        exercise.lastFirstSerie?.let {
+            lastRepsWritten = if (exercise.lastFirstSerie!!.reps == null) 0 else exercise.lastFirstSerie!!.reps
+            lastKgWritten = if (exercise.lastFirstSerie!!.kg == null) 0.0 else exercise.lastFirstSerie!!.kg
+            binding.apply {
+                etCounterReps.setText(lastRepsWritten.toString())
+                etCounterKg.setText(lastKgWritten.toString())
             }
         }
     }

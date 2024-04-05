@@ -228,7 +228,7 @@ public class FitnFlowRepositoryImpl implements FitnFlowRepository {
     }
 
     public List<SerieModel> addNewSerie(int reps, double weight, int exerciseId) throws Exception {
-        SerieForAddSerieRequestDto serieForAddSerieRequestDto = new SerieForAddSerieRequestDto(reps, weight, new ExerciseDto(exerciseId, null, null));
+        SerieForAddSerieRequestDto serieForAddSerieRequestDto = new SerieForAddSerieRequestDto(reps, weight, new ExerciseDto(exerciseId, null, null, null, null));
         AddSerieRequestDto addSerieRequestDto = new AddSerieRequestDto(currentDate, serieForAddSerieRequestDto);
         List<SerieModel> serieListResponse;
         try{
