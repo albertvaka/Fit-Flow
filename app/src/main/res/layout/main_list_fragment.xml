@@ -88,7 +88,7 @@
         app:layout_constraintEnd_toEndOf="@id/calendBar"
         android:lineSpacingExtra="7dp"
         android:textAlignment="center"
-        android:textColor="@color/blue"
+        android:textColor="@color/title_gray_home"
         android:text="@string/empty_txt_home"
         style="@style/text_xl_home_title"
         />
@@ -118,19 +118,20 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonPanel"
-        android:background="@drawable/corner_button"
+        android:background="@drawable/shape_addcategory_fullpurple_rounded_corners"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="50dp"
         android:minHeight="56dp"
-        style="@style/text_l_home_btn"
+        style="@style/text_l_white"
+        android:textStyle="bold"
         android:textAllCaps="false"
         android:textAlignment="center"
         android:text="@string/add_training"
         android:paddingEnd="40dp"
-        android:paddingStart="20dp"
+        android:paddingStart="30dp"
+        android:drawablePadding="10dp"
         android:drawableStart="@drawable/add_symbol"
-        android:drawablePadding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

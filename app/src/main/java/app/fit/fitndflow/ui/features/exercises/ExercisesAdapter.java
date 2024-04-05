@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -58,6 +59,7 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.View
             holder.textList.setText(exercise.getName());
             if(mIsEditMode){
                 holder.cancelBtn.setVisibility(VISIBLE);
+                holder.pencilSvg.setVisibility(VISIBLE);
                 holder.cancelBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -66,8 +68,9 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.View
                 });
             } else {
                 holder.cancelBtn.setVisibility(INVISIBLE);
+                holder.pencilSvg.setVisibility(INVISIBLE);
             }
-            holder.textList.setOnClickListener(new View.OnClickListener() {
+            holder.bodyContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if(mIsEditMode){
@@ -110,15 +113,19 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.View
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView textList;
         ConstraintLayout container;
+        ConstraintLayout bodyContainer;
+        TextView textList;
         ImageButton cancelBtn;
+        ImageView pencilSvg;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             cancelBtn = itemView.findViewById(R.id.cancel_single_item_btn);
             textList = itemView.findViewById(R.id.textList);
             container = itemView.findViewById(R.id.container);
+            bodyContainer = itemView.findViewById(R.id.bodyContainer);
+            pencilSvg = itemView.findViewById(R.id.edit_mode_pencil);
         }
     }
 }

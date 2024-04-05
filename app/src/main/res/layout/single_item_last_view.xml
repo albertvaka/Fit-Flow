@@ -15,14 +15,16 @@
         app:layout_constraintStart_toStartOf="parent"
         android:text="@string/new_category"
         android:drawableStart="@drawable/add_symbol"
-        android:drawablePadding="20dp"
-        android:paddingStart="20dp"
         style="@style/text_l_white"
         android:background="@drawable/shape_addcategory_fullpurple_rounded_corners"
         android:layout_marginStart="60dp"
         android:layout_marginEnd="60dp"
+        android:textAlignment="center"
+        android:paddingStart="30dp"
+        android:paddingEnd="40dp"
         android:padding="15dp"
         android:textStyle="bold"
+        android:maxLines="1"
         />
 
 
