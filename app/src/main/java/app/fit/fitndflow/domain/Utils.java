@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.fit.fitndflow.R;
 
+import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -47,10 +48,9 @@ public class Utils {
 
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 
-        String[] dayNames = {context.getString(R.string.sunday), context.getString(R.string.monday), context.getString(R.string.tuesday), context.getString(R.string.wednesday),
-                context.getString(R.string.thursday), context.getString(R.string.friday), context.getString(R.string.saturday)};
+        String[] dayNames = new DateFormatSymbols().getShortWeekdays();
 
-        return dayNames[dayOfWeek - 1].substring(0, 3);
+        return dayNames[dayOfWeek];
     }
 
     public static boolean isYesterday(Date date) {
