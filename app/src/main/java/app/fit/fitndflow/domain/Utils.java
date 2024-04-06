@@ -42,7 +42,7 @@ public class Utils {
         return dateFormat.format(date);
     }
 
-    public static String dayOfWeek(Date date, Context context) {
+    public static String dayOfWeek(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
 
